@@ -1,0 +1,45 @@
+name: 'Sentry Release Upload'
+
+description: 'Creates a Sentry release and uploads the corresponding sourcemaps'
+
+inputs:
+  environment:
+    required: false
+    default: production
+  sentry-auth-token:
+    required: true
+  sentry-organization:
+    required: true
+  sentry-project:
+    required: true
+  sourcemaps-path:
+    required: false
+    default: './'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3.1.0
+      with:
+        fetch-depth: 0
+
+    - name: Get package.json version
+      id: version
+      shell: bash
+      run: echo "version=cat package.json | jq -r '.version'"
+
+    - name: Create Sentry release
+      uses: getsentry/action-release@v1
+      env:
+        SENTRY_AUTH_TOKEN: ${{ inputs.sentry-auth-token }}
+        SENTRY_ORG: ${{ inputs.sentry-organization }}
+        SENTRY_PROJECT: ${{ inputs.sentry-project }}
+      with:
+        environment: ${{ inputs.environment }}
+        version: ${{ steps.version.outputs.version }}
+        sourcemaps: ${{ inputs.sourcemaps-path }}
+
+branding:
+  icon: box
+  color: purple
