@@ -24,17 +24,19 @@ jobs:
           sentry-organization: 'test-org'
           sentry-project: 'test-app'
           sourcemaps-path: 'build'
+          build-command: 'npm run build'
 ```
 
 The action takes the following inputs:
 
-| Key                      | Description                                                          |
-| ------------------------ | -------------------------------------------------------------------- |
-| `environment`            | The environment of the release (default `production`)                |
-| `sentry-auth-token` \*   | Your Sentry auth token                                               |
-| `sentry-organization` \* | Your Sentry organization that contains the project                   |
-| `sentry-project` \*      | Your Sentry project to which the release and uploads should be added |
-| `sourcemaps-path`        | The path to your sourcemaps (default `./`)                           |
+| Key                      | Description                                                                    |
+| ------------------------ | ------------------------------------------------------------------------------ |
+| `environment`            | The environment of the release (default `production`)                          |
+| `sentry-auth-token` \*   | Your Sentry auth token                                                         |
+| `sentry-organization` \* | Your Sentry organization that contains the project                             |
+| `sentry-project` \*      | Your Sentry project to which the release and uploads should be added           |
+| `sourcemaps-path`        | The path to your sourcemaps (default `./`)                                     |
+| `build-command`          | The build command to be used to create the sourcemaps (default `npm run prod`) |
 
 The \* indicates mandatory inputs.
 
