@@ -14,7 +14,7 @@ inputs:
     required: true
   sourcemaps-path:
     required: false
-    default: './':
+    default: './'
   build-command:
     required: false
     default: 'npm run prod'
