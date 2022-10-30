@@ -14,7 +14,10 @@ inputs:
     required: true
   sourcemaps-path:
     required: false
-    default: './'
+    default: './':
+  build-command:
+    required: false
+    default: 'npm run prod'
 
 runs:
   using: 'composite'
@@ -27,7 +30,15 @@ runs:
     - name: Get package.json version
       id: version
       shell: bash
-      run: echo "version=cat package.json | jq -r '.version'"
+      run: echo "version=$(cat package.json | jq -r '.version')" >> $GITHUB_OUTPUT
+
+    - name: Install dependencies
+      shell: bash
+      run: npm install
+
+    - name: Build production
+      shell: bash
+      run: ${{ inputs.build-command }}
 
     - name: Create Sentry release
       uses: getsentry/action-release@v1
