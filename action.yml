@@ -55,7 +55,7 @@ runs:
       with:
         environment: ${{ inputs.environment }}
         version: ${{ steps.version.outputs.version }}
-        sourcemaps: ${{ format('{0}/{1}', inputs.working-directory, inputs.sourcemaps-path }}
+        sourcemaps: ${{ format('{0}/{1}', inputs.working-directory, inputs.sourcemaps-path) }}
 
 branding:
   icon: box
