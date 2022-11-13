@@ -23,20 +23,22 @@ jobs:
           sentry-auth-token: ${{ secrets.SENTRY_AUTH_TOKEN}}
           sentry-organization: 'test-org'
           sentry-project: 'test-app'
-          sourcemaps-path: 'build'
+          sourcemaps-path: 'dist'
           build-command: 'npm run build'
+          working-directory: './subfolder'
 ```
 
 The action takes the following inputs:
 
-| Key                      | Description                                                                    |
-| ------------------------ | ------------------------------------------------------------------------------ |
-| `environment`            | The environment of the release (default `production`)                          |
-| `sentry-auth-token` \*   | Your Sentry auth token                                                         |
-| `sentry-organization` \* | Your Sentry organization that contains the project                             |
-| `sentry-project` \*      | Your Sentry project to which the release and uploads should be added           |
-| `sourcemaps-path`        | The path to your sourcemaps (default `./`)                                     |
-| `build-command`          | The build command to be used to create the sourcemaps (default `npm run prod`) |
+| Key                      | Description                                                                          |
+| ------------------------ | ------------------------------------------------------------------------------------ |
+| `environment`            | The environment of the release (default `production`)                                |
+| `sentry-auth-token` \*   | Your Sentry auth token                                                               |
+| `sentry-organization` \* | Your Sentry organization that contains the project                                   |
+| `sentry-project` \*      | Your Sentry project to which the release and uploads should be added                 |
+| `sourcemaps-path`        | The path to your sourcemaps (default `build`)                                        |
+| `build-command`          | The build command to be used to create the sourcemaps (default `npm run prod`)       |
+| `working-directory`      | The directory where from where build and upload commands should be run (default `.`) |
 
 The \* indicates mandatory inputs.
 

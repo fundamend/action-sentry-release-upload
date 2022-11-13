@@ -14,10 +14,13 @@ inputs:
     required: true
   sourcemaps-path:
     required: false
-    default: './'
+    default: 'build'
   build-command:
     required: false
     default: 'npm run prod'
+  working-directory:
+    required: false
+    default: '.'
 
 runs:
   using: 'composite'
@@ -30,14 +33,17 @@ runs:
     - name: Get package.json version
       id: version
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
       run: echo "version=$(cat package.json | jq -r '.version')" >> $GITHUB_OUTPUT
 
     - name: Install dependencies
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
       run: npm install
 
     - name: Build production
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
       run: ${{ inputs.build-command }}
 
     - name: Create Sentry release
@@ -49,7 +55,7 @@ runs:
       with:
         environment: ${{ inputs.environment }}
         version: ${{ steps.version.outputs.version }}
-        sourcemaps: ${{ inputs.sourcemaps-path }}
+        sourcemaps: ${{ format('{0}/{1}', inputs.working-directory, inputs.sourcemaps-path }}
 
 branding:
   icon: box
