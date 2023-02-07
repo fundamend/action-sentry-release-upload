@@ -20,7 +20,7 @@ jobs:
         uses: fundamend/action-sentry-release-upload@main
         with:
           environment: 'preview'
-          sentry-auth-token: ${{ secrets.SENTRY_AUTH_TOKEN}}
+          sentry-auth-token: ${{ secrets.PRIVATE_SENTRY_AUTH_TOKEN}}
           sentry-organization: 'test-org'
           sentry-project: 'test-app'
           sourcemaps-path: 'dist'
